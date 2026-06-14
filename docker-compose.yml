@@ -1,0 +1,60 @@
+services:
+  frontend:
+    tty: true
+    # image
+    build:
+      context: .
+      dockerfile: docker/frontend/Dockerfile
+    # container
+    container_name: app
+    ports:
+      - "5173:5173"
+    # volume
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules  # node_modulesをコンテナ内に隔離
+    command: npm --prefix /app run dev -- --host 0.0.0.0
+
+  backend:
+    tty: true
+    # image
+    build:
+      context: .
+      dockerfile: docker/backend/Dockerfile
+    # enviroment
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    # container
+    container_name: backend
+    ports:
+      - "8001:8000"
+    # volume
+    volumes:
+      - ./backend/fast-api:/app
+    depends_on:
+      - db
+    command: uv run fastapi dev --host 0.0.0.0
+
+  db:
+    tty: true
+    # image
+    image: mysql:8.4
+    # enviroment
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+    # container
+    container_name: db
+    ports:
+      - "3307:3306"
+    # volume
+    volumes:
+      - ./docker/database/my.cnf:/etc/my.cnf
+      - ./docker/database/logs:/var/log/mysql
+      - dbvolume:/var/lib/mysql
+    command:
+
+volumes:
+  dbvolume:
