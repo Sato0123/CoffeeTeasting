@@ -51,9 +51,10 @@ services:
       - "3307:3306"
     # volume
     volumes:
-      - ./docker/database/my.cnf:/etc/my.cnf
-      - ./docker/database/logs:/var/log/mysql
-      - dbvolume:/var/lib/mysql
+    - ./docker/database/my.cnf:/etc/my.cnf
+    - ./docker/database/logs:/var/log/mysql
+    - dbvolume:/var/lib/mysql
+    - ./docker/database/init:/docker-entrypoint-initdb.d
     command:
 
 volumes:
