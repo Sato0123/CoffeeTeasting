@@ -1,6 +1,6 @@
 import { useForm, } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 import { z } from "zod";
 import './App.css'
@@ -45,7 +45,7 @@ function App() {
   });
 
   const onSubmit = async (data: RosterForm) => {
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     try {
       const response = await fetch(`http://127.0.0.1:8001`, {
         method: 'POST',
@@ -55,7 +55,8 @@ function App() {
       })
       if (response.ok) {
         alert("登録が完了しました。")
-        navigate("/done");
+        console.log(response.body)
+        // navigate("/done");
       } else {
         alert("登録に失敗しました。")
       }

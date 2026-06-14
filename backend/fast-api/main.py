@@ -1,5 +1,6 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
 
 app = FastAPI()
 
@@ -12,6 +13,14 @@ app.add_middleware(
 )
 
 
+class Roster(BaseModel):
+    company_name: str
+    company_name2: str
+
+
 @app.post("/")
-async def root():
-    return {"message": "Hello World"}
+async def create_roster(request: Request):
+    body = await request.json()
+    print(body)
+    # TODO: DB接続をする
+    return body
