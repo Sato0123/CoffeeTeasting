@@ -1,0 +1,22 @@
+USE coffee;
+
+CREATE TABLE IF NOT EXISTS flavor_category (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  code VARCHAR(2) NOT NULL,
+  name int NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+INSERT INTO flavor_category (code, name) VALUES
+  (NULL, 'FR', 'フルーティー'),
+  (NULL, 'FL', 'フローラル'),
+  (NULL, 'NT', 'ナッティ'),
+  (NULL, 'CH', 'チョコレート'),
+  (NULL, 'SP', 'スパイシー'),
+  (NULL, 'CT', 'シトラス');
+
+CREATE TABLE IF NOT EXISTS roster (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  category int NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
