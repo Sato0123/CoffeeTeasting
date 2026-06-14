@@ -1,3 +1,7 @@
+## 画面
+
+https://github.com/user-attachments/assets/fffe0aa9-8036-4234-877c-523585406d8c
+
 ## 事前準備
 Dockerをインストールしてください！！！
 - Dockerとは？？
